@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const stats = [
-  { value: 200, suffix: "+", label: "Fuel Stations", description: "Actively managed on the platform" },
-  { value: 50, suffix: "M+", label: "Litres Tracked", description: "Fuel flow monitored monthly" },
-  { value: 99.9, suffix: "%", label: "Uptime SLA", description: "Always-on reliability" },
-  { value: 6, suffix: " Roles", label: "Access Levels", description: "From operator to master admin" },
+const statValues = [
+  { value: 200, suffix: "+" },
+  { value: 50,  suffix: "M+" },
+  { value: 99.9, suffix: "%" },
+  { value: 6,   suffix: " Roles" },
 ];
 
 function AnimatedCounter({
@@ -37,7 +38,7 @@ function AnimatedCounter({
   }, [start, value, duration]);
 
   return (
-    <span>
+    <span className="ltr-force" style={{ fontFamily: "Inter, sans-serif" }}>
       {count}
       {suffix}
     </span>
@@ -47,6 +48,7 @@ function AnimatedCounter({
 export default function Stats() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="relative py-16 border-y border-white/5">
@@ -54,7 +56,7 @@ export default function Stats() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {stats.map((stat, i) => (
+          {t.stats.map((stat, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -64,8 +66,8 @@ export default function Stats() {
             >
               <div className="text-3xl lg:text-4xl xl:text-5xl font-black gradient-text-amber mb-2">
                 <AnimatedCounter
-                  value={stat.value}
-                  suffix={stat.suffix}
+                  value={statValues[i].value}
+                  suffix={statValues[i].suffix}
                   start={inView}
                 />
               </div>

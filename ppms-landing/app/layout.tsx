@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export const metadata: Metadata = {
   title: "PPMS — Petrol Pump Management System | Razex Solutions",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     "Razex Solutions",
     "fuel station ERP",
     "pump management system",
+    "پیٹرول پمپ مینجمنٹ",
   ],
   authors: [{ name: "Razex Solutions", url: "https://razexsolutions.com" }],
   openGraph: {
@@ -57,12 +59,20 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Latin font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+        {/* Urdu / Nastaliq font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="bg-[#0a0f1e] text-gray-100 antialiased">{children}</body>
+      <body className="bg-[#0a0f1e] text-gray-100 antialiased">
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

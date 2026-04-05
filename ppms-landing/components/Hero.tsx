@@ -3,41 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import HeroDashboard from "@/components/illustrations/HeroDashboard";
-
-const floatingCards = [
-  {
-    icon: TrendingUp,
-    label: "Today's Sales",
-    value: "PKR 2,84,500",
-    change: "+12.4%",
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/10",
-  },
-  {
-    icon: Fuel,
-    label: "Fuel Stock",
-    value: "18,420 L",
-    change: "Petrol • Diesel • CNG",
-    color: "text-amber-400",
-    bg: "bg-amber-400/10",
-  },
-  {
-    icon: Shield,
-    label: "Active Shifts",
-    value: "4 / 6",
-    change: "Stations Online",
-    color: "text-blue-400",
-    bg: "bg-blue-400/10",
-  },
-  {
-    icon: BarChart3,
-    label: "Net Profit",
-    value: "PKR 38,210",
-    change: "+8.2% vs yesterday",
-    color: "text-purple-400",
-    bg: "bg-purple-400/10",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -53,6 +19,9 @@ const itemVariants = {
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+  const h = t.hero;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background */}
@@ -71,13 +40,13 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-left"
+            className="text-center lg:text-start"
           >
             {/* Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 glass-amber rounded-full px-4 py-1.5 mb-6">
               <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
-              <span className="text-amber-400 text-xs font-semibold tracking-wider uppercase">
-                Fuel Station SaaS Platform
+              <span className="text-amber-400 text-xs font-semibold">
+                {h.badge}
               </span>
             </motion.div>
 
@@ -86,11 +55,11 @@ export default function Hero() {
               variants={itemVariants}
               className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6"
             >
-              Run Every{" "}
-              <span className="gradient-text-amber">Pump.</span>
+              {h.headline1}{" "}
+              <span className="gradient-text-amber">{h.highlight1}</span>
               <br />
-              Own Every{" "}
-              <span className="gradient-text">Litre.</span>
+              {h.headline2}{" "}
+              <span className="gradient-text">{h.highlight2}</span>
             </motion.h1>
 
             {/* Description */}
@@ -98,9 +67,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-gray-400 text-lg lg:text-xl leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0"
             >
-              PPMS is the all-in-one SaaS platform for petrol pump operators —
-              managing sales, inventory, accounting, payroll, and multi-station
-              oversight from a single dashboard.
+              {h.description}
             </motion.p>
 
             {/* CTAs */}
@@ -112,7 +79,7 @@ export default function Hero() {
                 href="#pricing"
                 className="group flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-[#0a0f1e] font-bold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-amber-500/30 text-base"
               >
-                Start Free Trial
+                {h.cta1}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -122,7 +89,7 @@ export default function Hero() {
                 <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
                   <Play className="w-3.5 h-3.5 text-amber-400 ml-0.5" fill="currentColor" />
                 </div>
-                Watch Demo
+                {h.cta2}
               </a>
             </motion.div>
 
@@ -131,24 +98,25 @@ export default function Hero() {
               variants={itemVariants}
               className="mt-10 flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-6"
             >
-              <div className="flex -space-x-2">
+              <div className="flex -space-x-2 ltr-force">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div
                     key={i}
                     className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-[#0a0f1e] flex items-center justify-center text-xs font-bold text-[#0a0f1e]"
+                    style={{ fontFamily: "Inter, sans-serif" }}
                   >
                     {String.fromCharCode(64 + i)}
                   </div>
                 ))}
               </div>
               <div className="text-sm text-gray-400">
-                <span className="text-white font-semibold">200+</span> fuel stations
-                trust PPMS
+                <span className="text-white font-semibold ltr-force" style={{ fontFamily: "Inter, sans-serif" }}>200+</span>{" "}
+                {h.trust}
               </div>
               <div className="h-4 w-px bg-white/10 hidden sm:block" />
-              <div className="text-sm text-gray-400">
-                <span className="text-amber-400 font-semibold">★ 4.9</span> avg
-                rating
+              <div className="text-sm text-gray-400 ltr-force" style={{ fontFamily: "Inter, sans-serif" }}>
+                <span className="text-amber-400 font-semibold">★ 4.9</span>{" "}
+                {h.rating}
               </div>
             </motion.div>
           </motion.div>

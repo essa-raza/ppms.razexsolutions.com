@@ -104,3 +104,81 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Urdu / RTL mode ─────────────────────────────────────────── */
+
+/* Switch font to Noto Nastaliq Urdu when .urdu class is on <html> */
+html.urdu body,
+html.urdu * {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+  letter-spacing: 0 !important; /* Urdu doesn't use letter-spacing */
+}
+
+/* Keep logo / brand name always LTR */
+html.urdu .ltr-force {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Flip text alignment helpers used in components */
+html.urdu .text-left  { text-align: right; }
+html.urdu .text-right { text-align: left; }
+html[dir="rtl"] .lg\:text-left { text-align: right; }
+
+/* Adjust tracking classes (Urdu hates letter-spacing) */
+html.urdu .tracking-wider,
+html.urdu .tracking-widest,
+html.urdu .uppercase {
+  letter-spacing: 0 !important;
+  text-transform: none !important; /* don't uppercase Urdu */
+}
+
+/* Flip group-hover translate for RTL arrow icons */
+html.urdu .group:hover .group-hover\:translate-x-1 {
+  --tw-translate-x: -0.25rem;
+}
+
+/* Nastaliq needs slightly more line-height */
+html.urdu p,
+html.urdu li,
+html.urdu span:not(.ltr-force) {
+  line-height: 2.2 !important;
+}
+
+/* Badge / pill text stays readable in Urdu */
+html.urdu .text-xs {
+  font-size: 0.8rem;
+}
+html.urdu .text-sm {
+  font-size: 0.9rem;
+}
+
+/* Language toggle button */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.05);
+  color: #f59e0b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.lang-toggle:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.lang-toggle .lang-active {
+  color: #0a0f1e;
+  background: #f59e0b;
+  padding: 0.05rem 0.4rem;
+  border-radius: 9999px;
+  font-weight: 700;
+}

@@ -2,41 +2,24 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const testimonials = [
-  {
-    name: "Ahmad Raza",
-    role: "PSO Dealer & Station Owner",
-    location: "Lahore, Pakistan",
-    avatar: "A",
-    color: "from-amber-400 to-orange-500",
-    text: "Before PPMS, reconciling daily sales was a nightmare. Now our shift close takes 10 minutes and the daily report is generated automatically. The multi-station dashboard has changed how we run the business.",
-    rating: 5,
-    highlight: "Daily close now takes 10 minutes",
-  },
-  {
-    name: "Tariq Mehmood",
-    role: "Shell Franchise Manager",
-    location: "Karachi, Pakistan",
-    avatar: "T",
-    color: "from-blue-400 to-cyan-500",
-    text: "The role-based access is exactly what a multi-station franchise needs. My accountant sees only the financials, operators see only their shift — and I get the full picture at head office. Excellent.",
-    rating: 5,
-    highlight: "Perfect role separation across 3 stations",
-  },
-  {
-    name: "Nadia Siddiqui",
-    role: "Head of Finance, Caltex Operator",
-    location: "Islamabad, Pakistan",
-    avatar: "N",
-    color: "from-purple-400 to-pink-500",
-    text: "The ledger and payment tracking is incredibly detailed. Supplier balances, customer credit limits, expenses — all in one place. The low-stock alerts alone have saved us thousands in emergency deliveries.",
-    rating: 5,
-    highlight: "Saved thousands with smart stock alerts",
-  },
+const testimonialMeta = [
+  { avatar: "م", color: "from-amber-400 to-orange-500", rating: 5, highlight: "ہر روپیہ اور لیٹر ٹریک" },
+  { avatar: "ط", color: "from-blue-400 to-cyan-500",   rating: 5, highlight: "۳ اسٹیشن، ایک نظر" },
+  { avatar: "ث", color: "from-purple-400 to-pink-500", rating: 5, highlight: "خودکار پے رول" },
+];
+const testimonialMetaEn = [
+  { avatar: "A", color: "from-amber-400 to-orange-500", rating: 5, highlight: "Every rupee & litre tracked" },
+  { avatar: "T", color: "from-blue-400 to-cyan-500",   rating: 5, highlight: "3 stations, one view" },
+  { avatar: "S", color: "from-purple-400 to-pink-500", rating: 5, highlight: "Automated payroll" },
 ];
 
 export default function Testimonials() {
+  const { t, isUrdu } = useLanguage();
+  const tm = t.testimonials;
+  const meta = isUrdu ? testimonialMeta : testimonialMetaEn;
+
   return (
     <section className="relative py-24 lg:py-32">
       <div className="absolute inset-0 bg-[#0d1528]" />
@@ -52,9 +35,7 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 glass-amber rounded-full px-4 py-1.5 mb-4"
           >
-            <span className="text-amber-400 text-xs font-semibold tracking-wider uppercase">
-              Trusted by Operators
-            </span>
+            <span className="text-amber-400 text-xs font-semibold">{tm.badge}</span>
           </motion.div>
 
           <motion.h2
@@ -64,14 +45,14 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4"
           >
-            What Station Owners{" "}
-            <span className="gradient-text">Say About PPMS</span>
+            {tm.heading}{" "}
+            <span className="gradient-text">{tm.highlight}</span>
           </motion.h2>
         </div>
 
         {/* Testimonials grid */}
         <div className="grid lg:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+          {tm.items.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -84,9 +65,9 @@ export default function Testimonials() {
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-amber-500/30 mb-4" />
 
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.rating }).map((_, j) => (
+              {/* Stars — always LTR */}
+              <div className="flex gap-1 mb-4 ltr-force">
+                {Array.from({ length: meta[i].rating }).map((_, j) => (
                   <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
                 ))}
               </div>
@@ -94,26 +75,26 @@ export default function Testimonials() {
               {/* Highlight badge */}
               <div className="inline-flex glass-amber rounded-full px-3 py-1 mb-4 self-start">
                 <span className="text-amber-400 text-xs font-semibold">
-                  ✓ {t.highlight}
+                  ✓ {meta[i].highlight}
                 </span>
               </div>
 
               {/* Quote text */}
               <p className="text-gray-300 text-sm leading-relaxed flex-1 mb-6">
-                &ldquo;{t.text}&rdquo;
+                &ldquo;{item.quote}&rdquo;
               </p>
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-4 border-t border-white/5">
                 <div
-                  className={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}
+                  className={`w-10 h-10 rounded-full bg-gradient-to-br ${meta[i].color} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}
                 >
-                  {t.avatar}
+                  {meta[i].avatar}
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">{t.name}</p>
-                  <p className="text-gray-500 text-xs">{t.role}</p>
-                  <p className="text-gray-600 text-xs">{t.location}</p>
+                  <p className="text-white font-semibold text-sm">{item.name}</p>
+                  <p className="text-gray-500 text-xs">{item.role}</p>
+                  <p className="text-gray-600 text-xs">{item.location}</p>
                 </div>
               </div>
             </motion.div>

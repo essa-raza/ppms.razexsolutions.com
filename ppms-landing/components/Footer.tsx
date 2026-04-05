@@ -2,28 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Fuel, Mail, ExternalLink } from "lucide-react";
-
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Changelog", href: "#" },
-  ],
-  Company: [
-    { label: "About Razex Solutions", href: "https://razexsolutions.com" },
-    { label: "Contact Us", href: "#contact" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "#" },
-  ],
-};
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+  const f = t.footer;
+
   return (
     <footer className="relative border-t border-white/5 bg-[#04081a]">
       <div className="absolute inset-0 grid-bg opacity-30" />
@@ -38,35 +22,34 @@ export default function Footer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <a href="#" className="flex items-center gap-2.5 mb-4">
+              <a href="#" className="flex items-center gap-2.5 mb-4 ltr-force">
                 <div className="w-9 h-9 rounded-lg bg-amber-500 flex items-center justify-center">
                   <Fuel className="w-5 h-5 text-[#0a0f1e]" strokeWidth={2.5} />
                 </div>
                 <div className="flex flex-col leading-none">
-                  <span className="font-bold text-white text-lg tracking-tight">PPMS</span>
-                  <span className="text-[10px] text-amber-500 font-medium tracking-widest uppercase">
+                  <span className="font-bold text-white text-lg tracking-tight" style={{ fontFamily: "Inter, sans-serif" }}>PPMS</span>
+                  <span className="text-[10px] text-amber-500 font-medium tracking-widest uppercase" style={{ fontFamily: "Inter, sans-serif" }}>
                     Razex Solutions
                   </span>
                 </div>
               </a>
 
               <p className="text-gray-400 text-sm leading-relaxed mb-5 max-w-xs">
-                The all-in-one SaaS platform for petrol pump management. Built
-                by Razex Solutions for Pakistan&apos;s fuel industry.
+                {f.tagline}
               </p>
 
               <a
                 href="mailto:info@razexsolutions.com"
-                className="flex items-center gap-2 text-sm text-gray-400 hover:text-amber-400 transition-colors group"
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-amber-400 transition-colors group ltr-force"
               >
                 <Mail className="w-4 h-4 group-hover:text-amber-400" />
-                info@razexsolutions.com
+                <span style={{ fontFamily: "Inter, sans-serif" }}>info@razexsolutions.com</span>
               </a>
             </motion.div>
           </div>
 
           {/* Links */}
-          {Object.entries(footerLinks).map(([category, links], i) => (
+          {Object.entries(f.sections).map(([category, links], i) => (
             <motion.div
               key={category}
               initial={{ opacity: 0, y: 20 }}
@@ -74,11 +57,11 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wider">
+              <h4 className="text-white font-semibold text-sm mb-4">
                 {category}
               </h4>
               <ul className="space-y-3">
-                {links.map((link) => (
+                {(links as { label: string; href: string }[]).map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
@@ -99,19 +82,17 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Divider */}
+        {/* Bottom bar */}
         <div className="border-t border-white/5 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-sm">
-              © 2026 Razex Solutions. All rights reserved.
+            <p className="text-gray-500 text-sm ltr-force" style={{ fontFamily: "Inter, sans-serif" }}>
+              © 2026 Razex Solutions. {f.rights}
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 ltr-force">
               <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-gray-500 text-xs">
-                All systems operational
-              </span>
+              <span className="text-gray-500 text-xs">{f.status}</span>
             </div>
-            <p className="text-gray-600 text-xs">
+            <p className="text-gray-600 text-xs ltr-force" style={{ fontFamily: "Inter, sans-serif" }}>
               ppms.razexsolutions.com
             </p>
           </div>
