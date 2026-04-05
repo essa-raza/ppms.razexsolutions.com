@@ -61,7 +61,7 @@ export default function Footer() {
                 {category}
               </h4>
               <ul className="space-y-3">
-                {(links as { label: string; href: string }[]).map((link) => (
+                {(links as readonly { label: string; href: string }[]).map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
