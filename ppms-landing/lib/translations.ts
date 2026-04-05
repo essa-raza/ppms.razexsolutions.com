@@ -226,6 +226,7 @@ export const translations = {
     footer: {
       tagline:
         "The all-in-one SaaS platform for petrol pump management. Built by Razex Solutions for Pakistan's fuel industry.",
+      sectionTitles: ["Product", "Company", "Legal"],
       sections: {
         Product: [
           { label: "Features", href: "#features" },
@@ -480,20 +481,21 @@ export const translations = {
     footer: {
       tagline:
         "پیٹرول پمپ مینجمنٹ کا مکمل کلاؤڈ پلیٹ فارم۔ Razex Solutions نے پاکستان کی فیول انڈسٹری کے لیے بنایا۔",
+      sectionTitles: ["پروڈکٹ", "کمپنی", "قانونی"],
       sections: {
-        پروڈکٹ: [
+        Product: [
           { label: "خصوصیات", href: "#features" },
           { label: "یہ کیسے کام کرتا ہے", href: "#how-it-works" },
           { label: "قیمتیں", href: "#pricing" },
           { label: "تازہ ترین تبدیلیاں", href: "#" },
         ],
-        کمپنی: [
+        Company: [
           { label: "Razex Solutions کے بارے میں", href: "https://razexsolutions.com" },
           { label: "ہم سے رابطہ کریں", href: "#contact" },
           { label: "بلاگ", href: "#" },
           { label: "کریئر", href: "#" },
         ],
-        قانونی: [
+        Legal: [
           { label: "پرائیویسی پالیسی", href: "/privacy" },
           { label: "استعمال کی شرائط", href: "/terms" },
           { label: "کوکی پالیسی", href: "#" },

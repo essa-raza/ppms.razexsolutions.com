@@ -49,16 +49,16 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          {Object.entries(f.sections).map(([category, links], i) => (
+          {Object.entries(f.sections).map(([key, links], i) => (
             <motion.div
-              key={category}
+              key={key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
               <h4 className="text-white font-semibold text-sm mb-4">
-                {category}
+                {f.sectionTitles[i]}
               </h4>
               <ul className="space-y-3">
                 {links.map((link) => (
