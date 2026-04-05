@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          {Object.entries(f.sections).map(([category, links], i) => (
+          {(Object.entries(f.sections) as [string, { label: string; href: string }[]][]).map(([category, links], i) => (
             <motion.div
               key={category}
               initial={{ opacity: 0, y: 20 }}
@@ -61,7 +61,7 @@ export default function Footer() {
                 {category}
               </h4>
               <ul className="space-y-3">
-                {[...links].map((link) => (
+                {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
