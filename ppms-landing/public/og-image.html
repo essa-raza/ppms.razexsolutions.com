@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #0a0f1e;
+    position: relative;
+  }
+
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,158,11,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .glow1 { position: absolute; top: -100px; left: 100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .glow2 { position: absolute; bottom: -100px; right: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%); border-radius: 50%; }
+
+  .content { position: relative; z-index: 10; padding: 70px 80px; display: flex; align-items: center; gap: 80px; height: 100%; }
+
+  .left { flex: 1; }
+
+  .logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+  .logo-icon { width: 52px; height: 52px; background: #f59e0b; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(245,158,11,0.4); }
+  .logo-icon svg { width: 28px; height: 28px; }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-name { font-size: 24px; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1; }
+  .logo-sub { font-size: 10px; font-weight: 600; color: #f59e0b; letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; }
+
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); border-radius: 100px; padding: 6px 16px; margin-bottom: 22px; }
+  .badge-dot { width: 8px; height: 8px; background: #f59e0b; border-radius: 50%; }
+  .badge-text { font-size: 12px; font-weight: 600; color: #f59e0b; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  h1 { font-size: 58px; font-weight: 900; color: white; line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; }
+  h1 .amber { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .desc { font-size: 18px; color: rgba(156,163,175,1); line-height: 1.6; max-width: 520px; margin-bottom: 30px; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 100px; padding: 6px 16px; font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 500; }
+
+  /* Right: mini dashboard */
+  .right { width: 340px; flex-shrink: 0; }
+  .dashboard { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+  .dash-header { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); }
+  .dash-title { font-size: 11px; font-weight: 700; color: white; }
+  .live-badge { display: flex; align-items: center; gap: 5px; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); border-radius: 100px; padding: 3px 10px; }
+  .live-dot { width: 6px; height: 6px; background: #34d399; border-radius: 50%; }
+  .live-text { font-size: 9px; color: #34d399; font-weight: 600; }
+
+  .dash-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kpi { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px 12px; }
+  .kpi-label { font-size: 8px; color: rgba(156,163,175,0.7); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .kpi-value { font-size: 13px; font-weight: 800; color: white; }
+  .kpi-change { font-size: 8px; font-weight: 600; margin-top: 3px; }
+  .green { color: #34d399; }
+  .amber { color: #f59e0b; }
+  .blue { color: #60a5fa; }
+
+  .chart-area { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; }
+  .chart-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .chart-label { font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.7); }
+  .chart-val { font-size: 9px; font-weight: 700; color: #f59e0b; }
+
+  .tanks { display: flex; flex-direction: column; gap: 6px; }
+  .tank-row { display: grid; grid-template-columns: 1fr 3fr auto; align-items: center; gap: 8px; }
+  .tank-name { font-size: 8px; color: rgba(156,163,175,0.7); }
+  .tank-bar { height: 4px; background: rgba(255,255,255,0.05); border-radius: 100px; overflow: hidden; }
+  .tank-fill { height: 100%; border-radius: 100px; }
+  .tank-pct { font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.5); }
+
+  /* Bottom bar */
+  .bottom-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f59e0b, #fbbf24, #3b82f6); }
+  .domain { position: absolute; bottom: 20px; right: 80px; font-size: 12px; color: rgba(255,255,255,0.2); font-weight: 500; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="logo-row">
+        <div class="logo-icon">
+          <svg viewBox="0 0 28 28" fill="none">
+            <path d="M14 2C14 2 6 11 6 16C6 20.418 9.582 24 14 24C18.418 24 22 20.418 22 16C22 11 14 2 14 2Z" fill="#0a0f1e"/>
+            <polyline points="8,16 10.5,16 11.5,11 13,21 14.5,13 16,17.5 17.5,16 20,16" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">PPMS</span>
+          <span class="logo-sub">Razex Solutions</span>
+        </div>
+      </div>
+
+      <div class="badge">
+        <div class="badge-dot"></div>
+        <span class="badge-text">Petrol Pump Management SaaS</span>
+      </div>
+
+      <h1>Run Every Pump.<br/><span class="amber">Own Every Litre.</span></h1>
+
+      <p class="desc">The all-in-one SaaS platform for Pakistan's fuel station operators. Sales, inventory, accounting, payroll — one dashboard.</p>
+
+      <div class="pills">
+        <span class="pill">Real-Time Dashboard</span>
+        <span class="pill">Multi-Station</span>
+        <span class="pill">Role-Based Access</span>
+        <span class="pill">Smart Alerts</span>
+        <span class="pill">Payroll & Attendance</span>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="dashboard">
+        <div class="dash-header">
+          <span class="dash-title">PPMS Dashboard</span>
+          <div class="live-badge"><div class="live-dot"></div><span class="live-text">Live</span></div>
+        </div>
+        <div class="dash-body">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-label">Today's Sales</div>
+              <div class="kpi-value">₨ 2,84K</div>
+              <div class="kpi-change green">+12.4%</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Net Profit</div>
+              <div class="kpi-value">₨ 38.2K</div>
+              <div class="kpi-change green">+8.2%</div>
+            </div>
+          </div>
+
+          <div class="chart-area">
+            <div class="chart-top">
+              <span class="chart-label">Weekly Revenue</span>
+              <span class="chart-val">₨ 14.2L</span>
+            </div>
+            <svg viewBox="0 0 310 55" style="width:100%;height:42px;" fill="none">
+              <defs>
+                <linearGradient id="og-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M10,45 L54,32 L98,38 L142,22 L186,28 L230,12 L274,18 L310,45 L10,45Z" fill="url(#og-grad)"/>
+              <polyline points="10,45 54,32 98,38 142,22 186,28 230,12 274,18" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="230" cy="12" r="4" fill="#f59e0b" stroke="#0a0f1e" stroke-width="2"/>
+            </svg>
+          </div>
+
+          <div class="tanks">
+            <div class="tank-row">
+              <span class="tank-name">Petrol</span>
+              <div class="tank-bar"><div class="tank-fill" style="width:72%;background:#f59e0b;"></div></div>
+              <span class="tank-pct amber">72%</span>
+            </div>
+            <div class="tank-row">
+              <span class="tank-name">Diesel</span>
+              <div class="tank-bar"><div class="tank-fill" style="width:28%;background:#ef4444;"></div></div>
+              <span class="tank-pct" style="color:#ef4444;">⚠28%</span>
+            </div>
+            <div class="tank-row">
+              <span class="tank-name">CNG</span>
+              <div class="tank-bar"><div class="tank-fill" style="width:55%;background:#60a5fa;"></div></div>
+              <span class="tank-pct blue">55%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain">ppms.razexsolutions.com</div>
+  <div class="bottom-bar"></div>
+</body>
+</html>

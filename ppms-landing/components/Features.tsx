@@ -3,94 +3,70 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  LayoutDashboard,
-  Receipt,
-  Package,
-  Calculator,
-  Users,
-  Building2,
-  ShieldCheck,
-  FileBarChart2,
-} from "lucide-react";
+  DashboardIllustration,
+  SalesIllustration,
+  InventoryIllustration,
+  AccountingIllustration,
+  PayrollIllustration,
+  MultiStationIllustration,
+  RBACIllustration,
+  ReportsIllustration,
+} from "@/components/illustrations/FeatureIllustrations";
 
 const features = [
   {
-    icon: LayoutDashboard,
+    Illustration: DashboardIllustration,
     title: "Real-Time Dashboard",
-    description:
-      "Live sales totals, net profit, fuel stock levels, and automated alerts — all in one glanceable view.",
-    color: "text-amber-400",
-    bg: "bg-amber-400/10",
+    description: "Live sales totals, net profit, fuel stock levels, and automated alerts — all in one glanceable view.",
     border: "hover:border-amber-500/30",
     glow: "hover:shadow-amber-500/10",
   },
   {
-    icon: Receipt,
+    Illustration: SalesIllustration,
     title: "Sales & Shift Management",
-    description:
-      "Track cash and credit fuel sales, nozzle meter readings, and shift reconciliation with difference detection.",
-    color: "text-blue-400",
-    bg: "bg-blue-400/10",
+    description: "Track cash and credit fuel sales, nozzle meter readings, and shift reconciliation with difference detection.",
     border: "hover:border-blue-500/30",
     glow: "hover:shadow-blue-500/10",
   },
   {
-    icon: Package,
+    Illustration: InventoryIllustration,
     title: "Inventory & Tanker Deliveries",
-    description:
-      "Manage tank dip readings, tanker arrivals, fuel stock levels, and evaporation/leakage analysis.",
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/10",
+    description: "Manage tank dip readings, tanker arrivals, fuel stock levels, and evaporation/leakage analysis.",
     border: "hover:border-emerald-500/30",
     glow: "hover:shadow-emerald-500/10",
   },
   {
-    icon: Calculator,
+    Illustration: AccountingIllustration,
     title: "Accounting & Ledgers",
-    description:
-      "Full customer and supplier ledgers, receivable/payable payments, expense tracking, and profit analysis.",
-    color: "text-purple-400",
-    bg: "bg-purple-400/10",
+    description: "Full customer and supplier ledgers, receivable/payable payments, expense tracking, and profit analysis.",
     border: "hover:border-purple-500/30",
     glow: "hover:shadow-purple-500/10",
   },
   {
-    icon: Users,
+    Illustration: PayrollIllustration,
     title: "Attendance & Payroll",
-    description:
-      "Staff attendance check-in/out, manual corrections, payroll run generation, and finalization workflows.",
-    color: "text-rose-400",
-    bg: "bg-rose-400/10",
+    description: "Staff attendance check-in/out, manual corrections, payroll run generation, and finalization workflows.",
     border: "hover:border-rose-500/30",
     glow: "hover:shadow-rose-500/10",
   },
   {
-    icon: Building2,
+    Illustration: MultiStationIllustration,
     title: "Multi-Station Oversight",
-    description:
-      "Head-office dashboards spanning all stations, organization-level reporting, and cross-station comparison.",
-    color: "text-cyan-400",
-    bg: "bg-cyan-400/10",
+    description: "Head-office dashboards spanning all stations, organization-level reporting, and cross-station comparison.",
     border: "hover:border-cyan-500/30",
     glow: "hover:shadow-cyan-500/10",
   },
   {
-    icon: ShieldCheck,
+    Illustration: RBACIllustration,
     title: "Role-Based Access Control",
-    description:
-      "Granular permission hierarchy — MasterAdmin, HeadOffice, StationAdmin, Manager, Accountant, Operator.",
-    color: "text-amber-400",
-    bg: "bg-amber-400/10",
+    description: "Granular permission hierarchy — MasterAdmin, HeadOffice, StationAdmin, Manager, Accountant, Operator.",
     border: "hover:border-amber-500/30",
     glow: "hover:shadow-amber-500/10",
   },
   {
-    icon: FileBarChart2,
+    Illustration: ReportsIllustration,
     title: "Reports & Smart Alerts",
-    description:
-      "Daily closing, shift variance, stock movement, credit limit warnings, and low-fuel alerts — auto-generated.",
-    color: "text-indigo-400",
-    bg: "bg-indigo-400/10",
+    description: "Daily closing, shift variance, stock movement, credit limit warnings, and low-fuel alerts — auto-generated.",
     border: "hover:border-indigo-500/30",
     glow: "hover:shadow-indigo-500/10",
   },
@@ -169,19 +145,23 @@ export default function Features() {
               key={i}
               variants={cardVariants}
               whileHover={{ y: -4, scale: 1.01 }}
-              className={`group glass rounded-2xl p-6 border border-white/5 ${feature.border} transition-all duration-300 hover:shadow-lg ${feature.glow} cursor-default`}
+              className={`group glass rounded-2xl border border-white/5 ${feature.border} transition-all duration-300 hover:shadow-lg ${feature.glow} cursor-default overflow-hidden`}
             >
-              <div
-                className={`w-12 h-12 ${feature.bg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200`}
-              >
-                <feature.icon className={`w-6 h-6 ${feature.color}`} />
+              {/* Illustration area */}
+              <div className="h-36 p-4 flex items-center justify-center border-b border-white/5 bg-white/1 group-hover:bg-white/2 transition-colors">
+                <div className="w-full h-full">
+                  <feature.Illustration />
+                </div>
               </div>
-              <h3 className="text-white font-semibold text-base mb-2 leading-snug">
-                {feature.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {feature.description}
-              </p>
+              {/* Text */}
+              <div className="p-5">
+                <h3 className="text-white font-semibold text-base mb-2 leading-snug">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

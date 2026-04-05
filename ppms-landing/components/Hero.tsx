@@ -1,14 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Play,
-  TrendingUp,
-  Fuel,
-  Shield,
-  BarChart3,
-} from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
+import HeroDashboard from "@/components/illustrations/HeroDashboard";
 
 const floatingCards = [
   {
@@ -159,116 +153,14 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Dashboard Mockup */}
+          {/* Right: Custom Dashboard Illustration */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="relative hidden lg:block"
+            className="relative hidden lg:block pt-8 pb-12"
           >
-            {/* Main dashboard card */}
-            <div className="relative glass rounded-2xl p-6 border border-white/8 shadow-2xl">
-              {/* Header bar */}
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <p className="text-gray-400 text-xs mb-1">Good morning,</p>
-                  <p className="text-white font-semibold">Station Dashboard</p>
-                </div>
-                <div className="flex items-center gap-2 glass-amber rounded-full px-3 py-1.5">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  <span className="text-emerald-400 text-xs font-medium">Live</span>
-                </div>
-              </div>
-
-              {/* Stats grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {floatingCards.map((card, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + i * 0.1, duration: 0.5 }}
-                    className="glass rounded-xl p-4 border border-white/5 hover:border-amber-500/20 transition-colors group"
-                  >
-                    <div className={`w-8 h-8 ${card.bg} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                      <card.icon className={`w-4 h-4 ${card.color}`} />
-                    </div>
-                    <p className="text-gray-500 text-[10px] font-medium uppercase tracking-wide mb-1">
-                      {card.label}
-                    </p>
-                    <p className="text-white font-bold text-sm mb-1">{card.value}</p>
-                    <p className={`text-[10px] font-medium ${card.color}`}>
-                      {card.change}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Mini chart */}
-              <div className="mt-4 p-4 glass rounded-xl border border-white/5">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-gray-400 text-xs font-medium">Sales This Week</span>
-                  <span className="text-amber-400 text-xs font-semibold">PKR 14.2L</span>
-                </div>
-                <div className="flex items-end gap-1.5 h-12">
-                  {[40, 65, 50, 80, 70, 90, 75].map((h, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      transition={{ delay: 0.9 + i * 0.05, duration: 0.4 }}
-                      className="flex-1 bg-amber-500/20 rounded-sm origin-bottom"
-                      style={{ height: `${h}%` }}
-                    >
-                      <div
-                        className="w-full bg-amber-500 rounded-sm"
-                        style={{ height: i === 5 ? "100%" : "40%" }}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-                <div className="flex justify-between mt-1">
-                  {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-                    <span key={i} className="text-[9px] text-gray-600 flex-1 text-center">
-                      {d}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Floating alerts */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="absolute -right-4 top-8 glass-amber rounded-xl p-3 border border-amber-500/20 max-w-[160px]"
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-6 h-6 bg-amber-500/20 rounded-full flex items-center justify-center">
-                  <Fuel className="w-3 h-3 text-amber-400" />
-                </div>
-                <span className="text-amber-400 text-[10px] font-semibold">Low Stock Alert</span>
-              </div>
-              <p className="text-white text-xs font-medium">Diesel — Station 3</p>
-              <p className="text-gray-400 text-[10px]">1,200 L remaining</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.4, duration: 0.5 }}
-              className="absolute -left-4 bottom-12 glass rounded-xl p-3 border border-emerald-500/20 max-w-[160px]"
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-6 h-6 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-3 h-3 text-emerald-400" />
-                </div>
-                <span className="text-emerald-400 text-[10px] font-semibold">Shift Closed</span>
-              </div>
-              <p className="text-white text-xs font-medium">Morning Shift ✓</p>
-              <p className="text-gray-400 text-[10px]">PKR 92,400 collected</p>
-            </motion.div>
+            <HeroDashboard />
           </motion.div>
         </div>
       </div>
