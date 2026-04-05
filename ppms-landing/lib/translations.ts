@@ -503,6 +503,6 @@ export const translations = {
       status: "تمام سسٹمز فعال ہیں",
     },
   },
-} as const;
+};
 
 export type Translations = typeof translations.en;
